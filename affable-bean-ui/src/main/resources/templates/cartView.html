@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="layouts/masterLayout :: layout(~{::main})" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main role="main">
+    <div class="container">
+        <div class="row my-5">
+            <div class=" offset-md-2 col-md-2">
+                <a th:href="@{/ui/cart/clear}" href="" class="p-2 bg-secondary rounded">clear cart</a>
+            </div>
+            <div class="offset-md-1 col-md-3">
+                <a th:href="@{/home}" class="p-2 bg-secondary rounded">continue shopping</a>
+            </div>
+            <div class="offset-md-1 col-md-3">
+                <a href="javascript:document.myForm.submit()" class="p-2 bg-secondary rounded">proceed to checkout</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form name="myForm" th:action="@{'/ui/product/checkout'}" th:object="${product}" method="post">
+                <div class="card custom-bg">
+                    <table class="table table-scripted">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                        <tbody>
+                        <tr th:each="cart : ${cartItems}">
+                            <td><img th:src="@{'/bootstrap/images/products/' + ${cart.name} +'.png'} " alt="image"></td>
+                            <td th:text="${cart.name}"></td>
+                            <td th:text="${'$' + cart.price}"></td>
+                            <td><input type="text" class="form-control" th:field="*{quantitylist}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    <input type="submit" hidden>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
